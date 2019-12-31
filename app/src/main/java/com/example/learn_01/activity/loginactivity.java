@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,12 +17,12 @@ public class loginactivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login3);
+        setContentView(R.layout.activity_login);
         initView();
         initListener();
     }
-    private TextView mEtuserName ;
-    private  TextView mEtPassword;
+    private EditText mEtuserName ;
+    private  EditText mEtPassword;
     private Button  mBtnLogin;
     private void initListener() {
         mBtnLogin.setOnClickListener(new View.OnClickListener(){
@@ -52,8 +52,8 @@ public class loginactivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mEtuserName=(TextView)findViewById(R.id.username);
-        mEtPassword=(TextView)findViewById(R.id.password);
-        mBtnLogin = (Button)findViewById(R.id.button);
+        mEtuserName = findViewById(R.id.username);
+        mEtPassword = findViewById(R.id.password);
+        mBtnLogin =  findViewById(R.id.login);
     }
 }
