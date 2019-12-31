@@ -30,6 +30,8 @@ public class loginactivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                //id 填写错误
+                //不用TEXTVIEW  用EditText
                 Log.d(TGA,"测试了");
                 //判断账号
                 String username=mEtuserName.getText().toString();
