@@ -1,0 +1,5 @@
+<root>
+    <item name='org.jivesoftware.smack.ConnectionConfiguration'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>

@@ -18,6 +18,7 @@ import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jxmpp.jid.impl.JidCreate;
 
 import java.io.IOException;
 
@@ -31,6 +32,7 @@ public class loginactivity extends AppCompatActivity {
         initView();
         initListener();
     }
+    private static final String DOMAIN = "tx-180029.tx.com";
     private EditText mEtuserName ;
     private  EditText mEtPassword;
     private Button  mBtnLogin;
@@ -63,11 +65,12 @@ public class loginactivity extends AppCompatActivity {
                         try {
                             //  连接
                             Log.d(TGA,"连接1");
-                            XMPPTCPConnectionConfiguration config = XMPPTCPConnectionConfiguration.builder()
+                            XMPPTCPConnectionConfiguration config =XMPPTCPConnectionConfiguration.builder()
+                                    .setServiceName(JidCreate.domainBareFrom(DOMAIN))
 
 
-                                    .setHost("127.0.0.1")
-                                    .setPort(8888)
+                                    .setHost("172.24.101.26")
+                                    .setPort(5222)
                                     //下面两条是额外的配置
                                     .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)//明文传输，调试状态下可用
                                     .setDebuggerEnabled(true)//开启调试模式，方便查看具体发送的内容
