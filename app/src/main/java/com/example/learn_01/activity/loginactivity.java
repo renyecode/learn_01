@@ -6,10 +6,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learn_01.R;
+import com.example.learn_01.utils.ThreadUtils;
+
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.tcp.XMPPTCPConnection;
+import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+
+import java.io.IOException;
 
 public class loginactivity extends AppCompatActivity {
 
@@ -34,21 +44,72 @@ public class loginactivity extends AppCompatActivity {
                 //不用TEXTVIEW  用EditText
                 Log.d(TGA,"测试了");
                 //判断账号
-                String username=mEtuserName.getText().toString();
-                Log.d(TGA,"测试了2");
+                final String username=mEtuserName.getText().toString();
+
                 //判断密码
-                String password=mEtPassword.getText().toString();
+                final String password=mEtPassword.getText().toString();
                 if (TextUtils.isEmpty(username)){
                     mEtuserName.setError("用户名不能为空");
-                    Log.d(TGA,"测试了3");
+
                     return;
                 }
                 if (TextUtils.isEmpty(password)){
                     mEtPassword.setError("密码不能为空");
                     return;
                 }
+                ThreadUtils.runiNthread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //  连接
+                            Log.d(TGA,"连接1");
+                            XMPPTCPConnectionConfiguration config = XMPPTCPConnectionConfiguration.builder()
 
-            }
+
+                                    .setHost("127.0.0.1")
+                                    .setPort(8888)
+                                    //下面两条是额外的配置
+                                    .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)//明文传输，调试状态下可用
+                                    .setDebuggerEnabled(true)//开启调试模式，方便查看具体发送的内容
+                                    .build();
+                            Log.d(TGA,"连接1.4");
+                            XMPPTCPConnection conn = new XMPPTCPConnection(config);
+                            conn.connect();
+                            //登录 传入用户账号信息
+                            conn.login(username,password);
+
+                            //登录成功
+                            ThreadUtils.runinUIthread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+                        } catch (IOException e) {
+
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (XMPPException e) {
+//                            ThreadUtils.runiNthread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(getApplicationContext(),"登录失败",Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+                            e.printStackTrace();
+                        } catch (SmackException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                });
+
+
+            };
 
         });
     }
