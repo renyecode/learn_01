@@ -66,7 +66,7 @@ public class loginactivity extends AppCompatActivity {
                             //  连接
                             Log.d(TGA,"连接1");
                             XMPPTCPConnectionConfiguration config =XMPPTCPConnectionConfiguration.builder()
-                                    .setServiceName(JidCreate.domainBareFrom(DOMAIN))
+                                    .setServiceName(JidCreate.domainBareFrom(DOMAIN))//填写这行后不会闪退
 
 
                                     .setHost("172.24.101.26")
