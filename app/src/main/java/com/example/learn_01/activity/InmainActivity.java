@@ -34,16 +34,16 @@ public class InmainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inmain);
         ButterKnife.inject(this);//绑定控件  butterknife:6.0.0
-        initView();
+        initData();
 
     }
 
 
-    private void initView() {
+    private void initData() {
         //添加fragment 到集合中
         mFragments.add(new sessionFragment());
         mFragments.add(new ContactsFragment());
-        mainViewpager.setAdapter();// 设置适配器
+        mainViewpager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));// 设置适配器
 
 
     }
@@ -56,7 +56,7 @@ public class InmainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return null;
+            return mFragments.get(position);//返回控件2个
         }
 
         @Override

@@ -16,13 +16,14 @@
         android:gravity="center"
         android:text="主界面" />
     <!--  中间标题下面的页面-->
-    <android.view.SurfaceView
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
         android:layout_weight="1"/>
     <!--  最下面的导航栏-->
+
     <LinearLayout
         android:id="@+id/main_bottom"
         android:layout_width="match_parent"

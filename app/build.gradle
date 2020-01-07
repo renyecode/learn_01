@@ -10,7 +10,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true }}
+
+        }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -40,6 +44,8 @@ dependencies {
     implementation 'org.igniterealtime.smack:smack-resolver-dnsjava:4.2.0-alpha1'
     implementation 'org.igniterealtime.smack:smack-sasl-provided:4.2.0-alpha1'
     implementation 'org.igniterealtime.smack:smack-extensions:4.2.0-alpha1'
-    implementation 'com.jakewharton:butterknife:6.0.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:6.0.0'
+//    implementation 'com.jakewharton:butterknife:8.5.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.jakewharton:butterknife:6.0.0'
 }
+
