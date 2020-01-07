@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.ceshi"></activity>
+        <activity android:name=".activity.InmainActivity"></activity>
+        <activity android:name=".activity.ceshi" />
         <activity android:name=".activity.loginactivity" />
         <activity
             android:name=".activity.ui.login.LoginActivity"
@@ -26,5 +27,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

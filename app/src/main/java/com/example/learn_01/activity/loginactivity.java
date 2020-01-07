@@ -1,17 +1,18 @@
 package com.example.learn_01.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learn_01.R;
 import com.example.learn_01.utils.ThreadUtils;
+import com.example.learn_01.utils.ToastUtils;
 
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackException;
@@ -32,7 +33,7 @@ public class loginactivity extends AppCompatActivity {
         initView();
         initListener();
     }
-    private static final String DOMAIN = "tx-180029.tx.com";
+    private static final String DOMAIN = "x-180029.tx.com";
     private EditText mEtuserName ;
     private  EditText mEtPassword;
     private Button  mBtnLogin;
@@ -69,25 +70,25 @@ public class loginactivity extends AppCompatActivity {
                                     .setServiceName(JidCreate.domainBareFrom(DOMAIN))//填写这行后不会闪退
 
 
-                                    .setHost("172.24.101.26")
+                                    .setHost("172.24.101.29")
                                     .setPort(5222)
                                     //下面两条是额外的配置
                                     .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)//明文传输，调试状态下可用
                                     .setDebuggerEnabled(true)//开启调试模式，方便查看具体发送的内容
                                     .build();
-                            Log.d(TGA,"连接1.4");
+
                             XMPPTCPConnection conn = new XMPPTCPConnection(config);
                             conn.connect();
                             //登录 传入用户账号信息
                             conn.login(username,password);
 
                             //登录成功
-                            ThreadUtils.runinUIthread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(),"登录成功",Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            ToastUtils.showToastSafe(loginactivity.this,"登录成功");
+                            //关闭上一个界面
+                            finish();
+                            //进入主界面
+                            Intent intent = new Intent(loginactivity.this,InmainActivity.class);
+                            startActivity(intent);
 
 
                         } catch (IOException e) {
@@ -96,13 +97,9 @@ public class loginactivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } catch (XMPPException e) {
-//                            ThreadUtils.runiNthread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    Toast.makeText(getApplicationContext(),"登录失败",Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
+
                             e.printStackTrace();
+                            ToastUtils.showToastSafe(loginactivity.this,"登录失败");
                         } catch (SmackException e) {
                             e.printStackTrace();
                         }
