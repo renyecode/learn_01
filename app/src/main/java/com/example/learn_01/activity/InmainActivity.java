@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.learn_01.R;
 import com.example.learn_01.fragment.ContactsFragment;
 import com.example.learn_01.fragment.sessionFragment;
+import com.example.learn_01.utils.ToolBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,13 @@ public class InmainActivity extends AppCompatActivity {
         mFragments.add(new sessionFragment());
         mFragments.add(new ContactsFragment());
         mainViewpager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));// 设置适配器
+        // 创建底部按钮
+        ToolBarUtil toolBarUtil = new ToolBarUtil();
+        // 图片名字
+        String[] toolBarTitleArr={"会话","联系人"};
+        //图标图片
+        int[] iconArr={R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+        toolBarUtil.createToolBar(mainBottom,toolBarTitleArr,iconArr);
 
 
     }
