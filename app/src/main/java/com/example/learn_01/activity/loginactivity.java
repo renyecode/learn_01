@@ -70,7 +70,7 @@ public class loginactivity extends AppCompatActivity {
                                     .setServiceName(JidCreate.domainBareFrom(DOMAIN))//填写这行后不会闪退
 
 
-                                    .setHost("172.24.101.29")
+                                    .setHost("172.24.101.19")
                                     .setPort(5222)
                                     //下面两条是额外的配置
                                     .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)//明文传输，调试状态下可用

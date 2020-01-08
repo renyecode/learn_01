@@ -26,7 +26,27 @@ public class ToolBarUtil {
             LinearLayout.LayoutParams params= new LinearLayout.LayoutParams(width,height);
             params.weight=1;
             container.addView(tv,params);
+            final int finalI = i;
+            tv.setOnClickListener(new View.OnClickListener() {//点击事件
+                @Override
+                public void onClick(View view) {
+                    //不同模块之间传值需要用接口回调
+                    //3需要传值的地方，用接口对象调用接口方法
+                    mOnToolBarClickListener.ontoolbarclick(finalI);
+
+                }
+            });
         }
 
+    }
+    //1创建接口和接口方法
+    public interface  OnToolBarClickListener{
+        void ontoolbarclick(int position);
+    }
+    //2定义接口变量
+   OnToolBarClickListener mOnToolBarClickListener;
+    //4暴露一个公共方法
+    public void setmOnToolBarClickListener(OnToolBarClickListener onToolBarClickListener){
+        mOnToolBarClickListener = onToolBarClickListener;
     }
 }

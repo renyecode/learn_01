@@ -1,9 +1,11 @@
 package com.example.learn_01.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,28 +32,62 @@ public class InmainActivity extends AppCompatActivity {
     @InjectView(R.id.main_bottom)
     LinearLayout mainBottom;
     private List<Fragment> mFragments = new ArrayList<Fragment>();//将 sessionfragment  contacts fragment 联系人 放入列表里面
+    private ToolBarUtil toolBarUtil;
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inmain);
         ButterKnife.inject(this);//绑定控件  butterknife:6.0.0
         initData();
+        initListener();
+
+    }
+
+    private void initListener() {
+//        mainViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+        toolBarUtil.setmOnToolBarClickListener(new ToolBarUtil.OnToolBarClickListener() {//监听按钮点击
+            @Override
+            public void ontoolbarclick(int position) {
+                mainViewpager.setCurrentItem(position);
+            }
+        });
+
+
 
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initData() {
         //添加fragment 到集合中
         mFragments.add(new sessionFragment());
         mFragments.add(new ContactsFragment());
         mainViewpager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));// 设置适配器
         // 创建底部按钮
-        ToolBarUtil toolBarUtil = new ToolBarUtil();
+        toolBarUtil = new ToolBarUtil();
         // 图片名字
         String[] toolBarTitleArr={"会话","联系人"};
         //图标图片
         int[] iconArr={R.mipmap.ic_launcher,R.mipmap.ic_launcher};
         toolBarUtil.createToolBar(mainBottom,toolBarTitleArr,iconArr);
+        
 
 
     }
